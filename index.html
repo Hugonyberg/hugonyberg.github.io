@@ -40,19 +40,16 @@
         <div class="inner">
           <header>
             <h1>
-              <a href="index.html" id="logo">Hugo Nyberg</a>
+              <span id="logo">Hugo Nyberg</span>
             </h1>
             <hr />
-            <h5>Gameplay & Systems Programmer</h5>
-            <p style="margin-top: 0.8em; font-size: 1.1em; opacity: 0.85; max-width: 32em; margin-left: auto; margin-right: auto;">
-              I build gameplay features, tools, and systems that create responsive and engaging player experiences, with experience across both Unity and C++.
-            </p>
+            <h5>Gameplay Programmer & Software Engineer</h5>
           </header>
           <footer>
             <a
-              href="#about"
-              class="button circled scrolly"
-              >About Me</a
+              href="#main"
+              class="button scrolly"
+              >Highlighted Work</a
             >
           </footer>
         </div>
@@ -232,6 +229,18 @@
       <section id="banner" class="carousel">
         <div class="reel">
           <article>
+            <a href="RopePhysics.html" class="image featured"
+              ><img src="images/RopePhysicsIcon.jpg" alt=""
+            /></a>
+            <header>
+              <h3>
+                <a href="RopePhysics.html"><strong>Rope Physics</strong></a>
+              </h3>
+            </header>
+            <p>Real-time rope simulation using Verlet integration and constraint relaxation.</p>
+          </article>
+
+          <article>
             <a href="Navmesh.html" class="image featured"
               ><img src="images/NavmeshLogo.jpg" alt=""
             /></a>
@@ -332,6 +341,53 @@
             <h2>Selected Technical Work</h2>
             <p style="margin-top: 0.5em; opacity: 0.7;">From team projects at The Game Assembly — built in a custom C++ engine</p>
           </header>
+        </article>
+
+        <article class="container special">
+          <header>
+            <h2><a href="RopePhysics.html">Rope/Chain Physics</a></h2>
+            <h4>
+              <strong>Verlet Integration · Jakobsen Constraint Relaxation</strong>
+            </h4>
+          </header>
+
+          <div class="row">
+            <article class="col-8 col-12-mobile special" style="margin: 0 auto; float: none;">
+              <a class="image featured">
+                <img
+                  src="images/Rope_Physics.gif"
+                  alt="Rope Physics Simulation"
+                />
+                <p><strong>Real-Time Rope Simulation</strong></p>
+              </a>
+            </article>
+          </div>
+
+          <p>
+            Built a rope/chain physics system using
+            <strong>Verlet integration</strong> for position-based dynamics.
+            Each segment's new position is computed from its current and previous
+            positions plus acceleration, removing the need to track velocities
+            explicitly and producing naturally smooth, stable motion.
+          </p>
+
+          <p>
+            Constraints between segments are enforced using the
+            <strong>Jakobsen method</strong>, which iteratively relaxes distance
+            constraints over multiple passes. This keeps segments at a fixed
+            length from each other, preventing stretching while allowing the rope
+            to drape and swing realistically.
+          </p>
+
+          <p>
+            The combination of Verlet integration and iterative constraint
+            solving creates a lightweight, <strong>physically plausible</strong>
+            rope simulation suitable for real-time use — ideal for grappling
+            hooks, chains, hanging cables, or any flexible linkage in gameplay.
+          </p>
+
+          <a href="RopePhysics.html" class="button">Read More</a>
+          <br />
         </article>
 
         <article class="container special">

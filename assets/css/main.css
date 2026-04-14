@@ -2263,13 +2263,25 @@ input, select, textarea {
 
 		#header .button {
 			display: inline-block;
-			border-radius: 100%;
-			width: 4.5em;
-			height: 4.5em;
-			line-height: 4.5em;
+			border-radius: 2em;
+			width: auto;
+			height: auto;
+			line-height: normal;
 			text-align: center;
-			font-size: 1.25em;
-			padding: 0;
+			font-size: 1.1em;
+			padding: 0.8em 2.5em;
+			background: rgba(45, 74, 48, 0.25);
+			color: #fff;
+			border: 2px solid #fff;
+			letter-spacing: 0.05em;
+			text-transform: uppercase;
+			font-weight: 600;
+			transition: background 0.3s ease, color 0.3s ease;
+		}
+
+		#header .button:hover {
+			background: #fff;
+			color: #2D4A30;
 		}
 
 		#header hr {
@@ -2379,6 +2391,11 @@ input, select, textarea {
 
 				#nav > ul > li.active {
 					border-color: rgba(192, 192, 192, 0.35);
+				}
+
+				#nav > ul > li:hover {
+					border-color: rgba(255, 255, 255, 0.5);
+					background: rgba(255, 255, 255, 0.1);
 				}
 
 				#nav > ul > li > a, #nav > ul > li > span {

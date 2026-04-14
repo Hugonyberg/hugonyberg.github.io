@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<!--
+	Helios by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-HP3BC6WFG5"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-HP3BC6WFG5");
+    </script>
+    <title>Rope/Chain Physics</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript
+      ><link rel="stylesheet" href="assets/css/noscript.css"
+    /></noscript>
+  </head>
+  <body class="no-sidebar is-preload">
+    <div id="page-wrapper">
+      <!-- Header -->
+      <div id="header">
+        <!-- Inner -->
+        <div class="inner">
+          <header>
+            <h1><a href="index.html" id="logo">Rope/Chain Physics</a></h1>
+          </header>
+        </div>
+
+        <!-- Nav -->
+        <nav id="nav">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li>
+              <a href="#">Game Projects</a>
+              <ul>
+                <li><a href="BlackSite.html">BlackSite: Deep Horizon</a></li>
+                <li><a href="OrderOfTheRoses.html">Order of the Roses</a></li>
+                <li><a href="CarlOfDuty.html">Carl Off Duty</a></li>
+                <li><a href="TheFlameWithin.html">The Flame Within</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="AIMenu.html">AI Systems</a>
+              <ul>
+                <li><a href="SteeringBehavior.html">3D Enemy AI</a></li>
+                <li><a href="GOAP.html">RTS-style AI</a></li>
+                <li><a href="StateMachine.html">State Machine AI</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="ToolsMenu.html">Tools</a>
+              <ul>
+                <li><a href="WaveManager.html">Wave Manager</a></li>
+                <li><a href="Navmesh.html">Navmesh Creation</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="OtherCode.html">Gameplay Systems</a>
+              <ul>
+                <li><a href="Raycasting.html">Screenspace Raycasting</a></li>
+                <li><a href="Collision2D.html">2D Collision</a></li>
+                <li><a href="PlayerMovement.html">Player Movement</a></li>
+              </ul>
+            </li>
+            <li><a href="Contact.html">Contact & CV</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Main -->
+      <div class="wrapper style1">
+        <div class="container">
+          <article id="main" class="special">
+            <header>
+              <p>
+                Rope & chain simulation using <strong>Verlet Integration</strong> and <strong>Jakobsen Constraint Relaxation</strong>
+              </p>
+            </header>
+
+            <a class="image featured">
+              <img
+                src="images/Rope_Physics.gif"
+                alt="Rope Physics Simulation"
+              />
+            </a>
+
+            <section>
+              <header><h2>Verlet Integration</h2></header>
+              <div class="row">
+                <!-- Left Column: Text -->
+                <div class="col-6 col-12-mobile">
+                  <section>
+                    <header>
+                      <h3>Position-Based Motion</h3>
+                    </header>
+                    <p>
+                      The core of the rope simulation uses
+                      <strong>Verlet integration</strong> to update each segment's
+                      position. Unlike traditional Euler integration which tracks
+                      velocity explicitly, Verlet derives motion from the difference
+                      between the current and previous positions. This makes the
+                      simulation inherently more stable and resistant to energy
+                      accumulation errors.
+                    </p>
+                    <p>
+                      Each frame, every non-fixed segment computes its new position
+                      using the formula:
+                    </p>
+                    <p>
+                      <strong>newPos = 2 * currentPos - previousPos + acceleration * dt^2</strong>
+                    </p>
+                    <p>
+                      The previous position is then stored for the next frame. This
+                      approach naturally handles damping and produces smooth,
+                      physically plausible motion without needing to explicitly
+                      manage velocity vectors.
+                    </p>
+
+                    <h3>Inputs:</h3>
+                    <p>
+                      <strong>Delta Time:</strong> The time step for the current
+                      frame.<br />
+                      <strong>Position:</strong> The segment's current world
+                      position.<br />
+                      <strong>Previous Position:</strong> Where the segment was last
+                      frame.<br />
+                      <strong>Acceleration:</strong> External forces like gravity
+                      acting on the segment.
+                    </p>
+
+                    <h3>Output:</h3>
+                    <p>
+                      Updated <strong>position</strong> and
+                      <strong>previous position</strong> for each rope segment,
+                      producing continuous, stable motion.
+                    </p>
+                  </section>
+                </div>
+
+                <!-- Right Column: Image -->
+                <div class="col-6 col-12-mobile">
+                  <br />
+                  <span class="image fit">
+                    <img
+                      src="images/SimulateVerlet.PNG"
+                      alt="SimulateVerlet Function"
+                    />
+                  </span>
+                </div>
+              </div>
+
+              <br /><br />
+
+              <header><h2>Jakobsen Constraint Relaxation</h2></header>
+              <div class="row">
+                <!-- Left Column: Text -->
+                <div class="col-6 col-12-mobile">
+                  <section>
+                    <header>
+                      <h3>Iterative Distance Constraints</h3>
+                    </header>
+                    <p>
+                      After Verlet integration moves each segment freely, the rope's
+                      structural integrity is restored through the
+                      <strong>Jakobsen method</strong>. This technique iterates over
+                      all adjacent segment pairs multiple times, pushing or pulling
+                      them to maintain a fixed rest length between each connection.
+                    </p>
+                    <p>
+                      The number of iterations directly controls accuracy versus
+                      performance. More iterations produce a stiffer, more accurate
+                      rope, while fewer iterations allow more elasticity and stretch.
+                      Even a small number of passes (3-5) produces convincing results
+                      for most gameplay scenarios.
+                    </p>
+
+                    <h4>Purpose:</h4>
+                    <ul>
+                      <li>Enforce fixed distances between connected segments.</li>
+                      <li>Prevent the rope from stretching or compressing unnaturally.</li>
+                      <li>
+                        Converge toward physically correct positions through repeated
+                        relaxation passes.
+                      </li>
+                    </ul>
+                  </section>
+                </div>
+
+                <!-- Right Column: Image -->
+                <div class="col-6 col-12-mobile">
+                  <br />
+                  <span class="image fit">
+                    <img
+                      src="images/Jakobsen.PNG"
+                      alt="Jakobsen Method"
+                    />
+                  </span>
+                </div>
+              </div>
+
+              <div class="row">
+                <!-- Left Column: Text -->
+                <div class="col-6 col-12-mobile">
+                  <section>
+                    <header>
+                      <h3>Relaxing Individual Constraints</h3>
+                    </header>
+                    <p>
+                      The <strong>RelaxConstraint</strong> function handles the
+                      actual correction between two connected segments. It calculates
+                      the current distance between them, compares it to the desired
+                      rest length, and shifts both segments equally along the
+                      connecting axis to satisfy the constraint.
+                    </p>
+                    <p>
+                      Fixed endpoints (like attachment points or anchors) are skipped
+                      during correction, ensuring the rope stays connected to its
+                      anchor while the rest of the chain adjusts naturally. This is
+                      what allows one end to be pinned to a wall or a player's hand
+                      while the rest swings freely.
+                    </p>
+
+                    <h3>Inputs:</h3>
+                    <p>
+                      <strong>Segment A & B:</strong> Two adjacent rope segments to
+                      constrain.<br />
+                      <strong>Rest Length:</strong> The target distance between the
+                      segments.<br />
+                      <strong>Rope Part Type:</strong> Whether a segment is fixed
+                      (anchor/end) or free.
+                    </p>
+
+                    <h3>Output:</h3>
+                    <p>
+                      Corrected <strong>positions</strong> for both segments,
+                      maintaining the rope's structural length without breaking
+                      connectivity.
+                    </p>
+                  </section>
+                </div>
+
+                <!-- Right Column: Image -->
+                <div class="col-6 col-12-mobile">
+                  <br />
+                  <span class="image fit">
+                    <img
+                      src="images/RelaxConstraints.PNG"
+                      alt="RelaxConstraint Function"
+                    />
+                  </span>
+                </div>
+              </div>
+
+              <br />
+              <section>
+                <header><h2>How It All Comes Together</h2></header>
+                <p>
+                  Each frame, the simulation runs in two phases. First,
+                  <strong>Verlet integration</strong> advances all free segments
+                  based on their momentum and external forces like gravity. This
+                  gives each segment a natural trajectory but may violate the
+                  rope's length constraints.
+                </p>
+                <p>
+                  Then, the <strong>Jakobsen method</strong> runs multiple
+                  correction passes, pulling segments back to their correct
+                  distances from each other. The more passes, the stiffer and
+                  more accurate the rope appears. Together, these two steps
+                  produce a rope that swings, drapes, and reacts to forces in a
+                  way that feels physically convincing — all at a low
+                  computational cost suitable for real-time gameplay.
+                </p>
+                <p>
+                  This approach is versatile and can be applied to grappling
+                  hooks, chains, hanging cables, bridges, or any flexible linkage
+                  where realistic physics adds to the player experience.
+                </p>
+              </section>
+              <p>
+                This implementation was inspired by
+                <a href="https://www.owlree.blog/posts/simulating-a-rope.html" target="_blank" rel="noopener noreferrer">
+                  <strong>this article on rope simulation</strong></a>.
+                If you'd like to dive deeper into the math and theory behind it, it's a great read.
+              </p>
+              <button onclick="history.back()">Go Back</button>
+            </section>
+          </article>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div id="footer">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <!-- Contact -->
+              <section class="contact">
+                <header>
+                  <h3>Want to get in touch?</h3>
+                </header>
+                <p>
+                  Feel free to reach out through any of the platforms below, or
+                  visit my
+                  <a href="Contact.html"><strong>Contact Page</strong></a>
+                </p>
+                <ul class="icons">
+                  <li>
+                    <a
+                      href="#"
+                      onclick="navigator.clipboard.writeText('HugoNyberg#1234'); alert('Discord tag copied!');"
+                      class="icon brands alt fa-discord"
+                      ><span class="label">Discord</span></a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.linkedin.com/in/hugo-nyberg-9b678a15b/"
+                      class="icon brands fa-linkedin-in"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <span class="label">Linkedin</span></a
+                    >
+                  </li>
+                  <li>
+                    <a href="Contact.html" class="icon solid alt fa-envelope">
+                      <span class="label">Email</span>
+                    </a>
+                  </li>
+                </ul>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.dropotron.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>
